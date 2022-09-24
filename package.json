@@ -1,0 +1,30 @@
+{
+  "name": "light-bot",
+  "version": "1.0.0",
+  "description": "Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drasty4k/light-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "crypto",
+    "binance"
+  ],
+  "author": "@Drasty4k, @tudor0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Drasty4k/light-bot/issues"
+  },
+  "homepage": "https://github.com/Drasty4k/light-bot#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "discord.js": "^14.4.0",
+    "dotenv": "^16.0.2"
+  }
+}
