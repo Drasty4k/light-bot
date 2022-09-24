@@ -4,7 +4,9 @@
   "description": "Discord bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:build": "tsc -w",
+    "start:watch": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,9 @@
   "homepage": "https://github.com/Drasty4k/light-bot#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "concurrently": "^7.4.0",
     "discord.js": "^14.4.0",
-    "dotenv": "^16.0.2"
+    "dotenv": "^16.0.2",
+    "nodemon": "^2.0.20"
   }
 }
