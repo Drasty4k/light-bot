@@ -1,5 +1,7 @@
-import { CacheType, ChatInputCommandInteraction, Interaction, SlashCommandBuilder } from "discord.js";
+import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { fetchBinanceData } from "../binance";
+import { Canvas } from "canvas";
+import { Chart } from "chart.js";
 
 export const data = new SlashCommandBuilder()
   .setName("crypto")
