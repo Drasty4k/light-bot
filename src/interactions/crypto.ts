@@ -49,6 +49,7 @@ export const getCryptoData = async (
   const coin = interaction.options.getString("coin");
   const currency = interaction.options.getString("currency");
 
+
   if (!coin || !currency) return;
 
   const prices = await fetchBinanceData(coin, currency);
