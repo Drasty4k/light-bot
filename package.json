@@ -26,6 +26,8 @@
   "homepage": "https://github.com/Drasty4k/light-bot#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "canvas": "^2.10.1",
+    "chart.js": "^3.9.1",
     "concurrently": "^7.4.0",
     "discord.js": "^14.4.0",
     "dotenv": "^16.0.2",
