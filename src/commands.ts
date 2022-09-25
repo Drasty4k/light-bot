@@ -1,59 +1,37 @@
 import { REST, Routes, SlashCommandBuilder } from "discord.js";
+import fs from "fs";
+import path from "path";
+
 require("dotenv").config();
+
 const rest = new REST({ version: "10" }).setToken(
   process.env.DISCORD_TOKEN as string
 );
 
-const data = new SlashCommandBuilder()
-  .setName("crypto")
-  .setDescription("See crypto data")
-  .addStringOption((option) =>
-    option
-      .setName("coin")
-      .setDescription("coin")
-      .setRequired(true)
-      .addChoices(
-        {
-          name: "BTC",
-          value: "BTC"
-        },
-        {
-          name: "ETH",
-          value: "ETH"
-        }
-      )
-  )
-  .addStringOption((option) =>
-    option
-      .setName("currency")
-      .setDescription(
-        "Choose the currency in which you want to see the price of the last traded coin"
-      )
-      .setRequired(true)
-      .addChoices(
-        {
-          name: "EUR",
-          value: "EUR"
-        },
-        {
-          name: "USD",
-          value: "USDT"
-        },
-        {
-          name: "GBP",
-          value: "GBP"
-        }
-      )
-  );
+const gatherSlashCommands = () => {
+  const dataArray = [];
+  const commandsPath = path.join(__dirname, "interactions");
+  const commandFiles = fs
+    .readdirSync(commandsPath)
+    .filter((file) => file.endsWith(".js"));
+  for (const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    const { data } = require(filePath);
+    dataArray.push(data.toJSON());
+  }
+  return dataArray;
+};
+
 
 export const registerCommands = async () => {
   try {
     console.log("Redeploying commands!");
+    const dataArray = gatherSlashCommands();
     await rest.put(
       Routes.applicationCommands(process.env.DISCORD_CLIENT_ID as string),
-      { body: [data] }
-    );
+      { body: dataArray }
+    ).then(() => console.log('Done redeplying commands'));
   } catch (error) {
     console.error("Error here!!!", error);
   }
-};
+}; 
