@@ -48,11 +48,53 @@ export const getCryptoData = async (
 ) => {
   const coin = interaction.options.getString("coin");
   const currency = interaction.options.getString("currency");
+
+
   if (!coin || !currency) return;
 
-  const { price } = await fetchBinanceData(coin, currency);
+  const prices = await fetchBinanceData(coin, currency);
 
-  await interaction.reply(
-    `Last recorded transaction was 1 ${coin} for ${price} ${currency}`
-  );
+  const canvas = new Canvas(700, 250);
+  const ctx = canvas.getContext("2d");
+
+  const closeTime = prices.map((item) => {
+    const date = new Date(item.closeTime);
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  });
+  const closePrice = prices.map((item) => Number(item.closePrince));
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: closeTime,
+      datasets: [
+        {
+          label: `${coin} prices`,
+          showLine: true,
+          data: closePrice,
+          backgroundColor: [
+            "rgba(255, 99, 132)",
+            "rgba(54, 162, 235)",
+            "rgba(255, 206, 86)",
+            "rgba(75, 192, 192)",
+            "rgba(153, 102, 255)",
+            "rgba(255, 159, 64)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+  });
+
+  await interaction.reply({
+    files: [{ attachment: canvas.toBuffer() }],
+  });
 };
