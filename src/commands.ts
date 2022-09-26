@@ -22,16 +22,17 @@ const gatherSlashCommands = () => {
   return dataArray;
 };
 
-
 export const registerCommands = async () => {
   try {
     console.log("Redeploying commands!");
     const dataArray = gatherSlashCommands();
-    await rest.put(
-      Routes.applicationCommands(process.env.DISCORD_CLIENT_ID as string),
-      { body: dataArray }
-    ).then(() => console.log('Done redeplying commands'));
+    await rest
+      .put(
+        Routes.applicationCommands(process.env.DISCORD_CLIENT_ID as string),
+        { body: dataArray }
+      )
+      .then(() => console.log("Done redeplying commands"));
   } catch (error) {
     console.error("Error here!!!", error);
   }
-}; 
+};

@@ -54,7 +54,7 @@ export const fetchBinanceData = async (
       numberOfTrades: item[8],
       takerBuyBaseAssetVolume: item[9],
       takerBuyBaseQuoteVolume: item[10],
-      unusedFieldIgnore: item[11],
+      unusedFieldIgnore: item[11]
     };
 
     KLines.push(kLineData);

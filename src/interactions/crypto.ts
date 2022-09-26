@@ -1,4 +1,8 @@
-import { CacheType, ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  CacheType,
+  ChatInputCommandInteraction,
+  SlashCommandBuilder
+} from "discord.js";
 import { fetchBinanceData } from "../binance";
 import { Canvas } from "canvas";
 import { Chart } from "chart.js";
@@ -7,20 +11,16 @@ export const data = new SlashCommandBuilder()
   .setName("crypto")
   .setDescription("See crypto data")
   .addStringOption((option) =>
-    option
-      .setName("coin")
-      .setDescription("coin")
-      .setRequired(true)
-      .addChoices(
-        {
-          name: "BTC",
-          value: "BTC"
-        },
-        {
-          name: "ETH",
-          value: "ETH"
-        }
-      )
+    option.setName("coin").setDescription("coin").setRequired(true).addChoices(
+      {
+        name: "BTC",
+        value: "BTC"
+      },
+      {
+        name: "ETH",
+        value: "ETH"
+      }
+    )
   )
   .addStringOption((option) =>
     option
@@ -51,7 +51,6 @@ export const getCryptoData = async (
   const coin = interaction.options.getString("coin");
   const currency = interaction.options.getString("currency");
 
-
   if (!coin || !currency) return;
 
   const prices = await fetchBinanceData(coin, currency);
@@ -80,7 +79,7 @@ export const getCryptoData = async (
             "rgba(255, 206, 86)",
             "rgba(75, 192, 192)",
             "rgba(153, 102, 255)",
-            "rgba(255, 159, 64)",
+            "rgba(255, 159, 64)"
           ],
           borderColor: [
             "rgba(255, 99, 132, 1)",
@@ -88,15 +87,15 @@ export const getCryptoData = async (
             "rgba(255, 206, 86, 1)",
             "rgba(75, 192, 192, 1)",
             "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
+            "rgba(255, 159, 64, 1)"
           ],
-          borderWidth: 1,
-        },
-      ],
-    },
+          borderWidth: 1
+        }
+      ]
+    }
   });
 
   await interaction.reply({
-    files: [{ attachment: canvas.toBuffer() }],
+    files: [{ attachment: canvas.toBuffer() }]
   });
 };
