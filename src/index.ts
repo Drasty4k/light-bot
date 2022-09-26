@@ -3,6 +3,7 @@ import { registerCommands } from "./commands";
 
 import { intents } from "./constants";
 import { getCryptoData } from "./interactions/crypto";
+import { getHelpEmbed } from "./interactions/help";
 import { replyAboutRM, replyPong } from "./message-create/replies";
 
 require("dotenv").config();
@@ -36,7 +37,11 @@ client.on("interactionCreate", async (interaction: Interaction) => {
   const { commandName } = interaction;
 
   if (commandName === "crypto") {
-    getCryptoData(interaction);
+    return getCryptoData(interaction);
+  }
+
+  if (commandName === "help") {
+    return getHelpEmbed(interaction);
   }
 });
 
